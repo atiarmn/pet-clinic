@@ -20,7 +20,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeTrue;
 
 @RunWith(Theories.class)
-class PetTest {
+public class PetTest {
 
 	private Pet testPet;
 
@@ -52,20 +52,18 @@ class PetTest {
 
 	@Theory
 	public void testForGetVisitsInOrder(Visit[] visits) {
-		assumeTrue(visits.length < 3);
+		assumeTrue(visits.length != 0);
 
-		Collection<Visit> testVisits = new LinkedHashSet<>();
+		Collection<Visit> testVisits = new LinkedHashSet<>(Arrays.asList(visits));
 
-		for(Visit v : visits) {
-			testVisits.add((v));
-		}
 		testPet.setVisitsInternal(testVisits);
 		List<Visit> sortedVisits = new ArrayList<>(testPet.getVisits());
-		for(Visit v : visits){
-			assertTrue("Test for get visits elements failed: The returned visits doesn't contain a visit",sortedVisits.contains(v));
+		List<Visit> list = new ArrayList<>(testVisits);
+		PropertyComparator.sort(list, new MutableSortDefinition("date", false, false));
+		for(Visit v : visits) {
+			assertTrue("Test for get visits elements failed: The returned visits doesn't contain a visit", sortedVisits.contains(v));
 		}
-		PropertyComparator.sort(sortedVisits, new MutableSortDefinition("date", false, false));
-		assertArrayEquals("Test for get visits in order failed: The order is incorrect!", sortedVisits.toArray(), testVisits.toArray());
+		assertArrayEquals("Test for get visits in order failed: The order is incorrect!", sortedVisits.toArray(), list.toArray());
 
 	}
 

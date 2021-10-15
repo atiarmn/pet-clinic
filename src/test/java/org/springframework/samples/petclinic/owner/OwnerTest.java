@@ -9,22 +9,23 @@ import org.springframework.beans.support.PropertyComparator;
 import java.util.*;
 import static org.junit.Assert.*;
 import org.junit.*;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class OwnerTest {
+public class OwnerTest {
 	private Owner testOwner;
 	private Set<Pet> testPets;
 
 	private Pet testPet1, testPet2;
 
-	@BeforeEach
+	@Before
 	public void setUp() {
 		testOwner = new Owner();
 		testPets = new HashSet<>();
 
 		testPet1 = new Pet();
-		testPet2.setName("Dog");
+		testPet1.setName("Dog");
 
 		testPet2 = new Pet();
 		testPet2.setName("Cat");
@@ -60,6 +61,7 @@ class OwnerTest {
 		List<Pet> internalPets = new ArrayList<>();
 		internalPets.add(testPet1);
 		internalPets.add(testPet2);
+		PropertyComparator.sort(internalPets, new MutableSortDefinition("name", true, true));
 		List<Pet> sortedPets = testOwner.getPets();
 		assertTrue("Test for get pets failed: The list is not equal to list of pets!", internalPets.equals(sortedPets));
 	}
