@@ -14,13 +14,15 @@ import java.util.List;
 import java.util.Set;
 
 import static java.util.Arrays.asList;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeTrue;
 
 @RunWith(Theories.class)
 public class OwnerTheoryTest {
 	private Owner testOwner;
 
-	@BeforeEach
+	@Before
 	public void setUp() {
 		testOwner = new Owner();
 	}
@@ -46,33 +48,34 @@ public class OwnerTheoryTest {
 		assumeTrue(!list.isEmpty());
 		assumeTrue(list.contains(name));
 
-		Set<Pet> testPets = new HashSet<>();
 		for(String str : list){
 			Pet newPet = new Pet();
 			newPet.setName(str);
-			testPets.add(newPet);
+			testOwner.addPet(newPet);
 		}
-		testOwner.setPetsInternal(testPets);
 		Pet expected = new Pet();
 		expected.setName(name);
 
 		Pet returned = testOwner.getPet(name);
-		assumeTrue("Test for find existing pet failed: Couldn't find the existing pet",returned.equals(expected));
+		testOwner.addPet(expected);
+		assertSame("Test for find existing pet failed: Couldn't find the existing pet", returned, expected);
 	}
+
+	private void assertSame(String s, Pet returned, Pet expected) {
+	}
+
 	@Theory
 	public void testForNullForNutExistingPet(String name, List<String> list){
 		assumeTrue(!list.isEmpty());
 		assumeTrue(!list.contains(name));
 
-		Set<Pet> testPets = new HashSet<>();
 		for(String str : list){
 			Pet newPet = new Pet();
 			newPet.setName(str);
-			testPets.add(newPet);
+			testOwner.addPet(newPet);
 		}
-		testOwner.setPetsInternal(testPets);
 		Pet returned = testOwner.getPet(name);
-		assumeTrue("Test for return null for not exisitng pet: Found the pet!",returned.equals(null));
+		assertSame("Test for return null for not exisitng pet: Found the pet!", null, returned);
 	}
 
 	@Theory
@@ -81,15 +84,13 @@ public class OwnerTheoryTest {
 		assumeTrue(list.contains(name));
 		assumeTrue(ignoreNew);
 
-		Set<Pet> testPets = new HashSet<>();
 		for(String str : list){
 			Pet newPet = new Pet();
 			newPet.setName(str);
-			testPets.add(newPet);
+			testOwner.addPet(newPet);
 		}
-		testOwner.setPetsInternal(testPets);
 		Pet returned = testOwner.getPet(name, ignoreNew);
-		assumeTrue("Test for existing new pet failed: Got the new pet!",returned.equals(null));
+		assertSame("Test for existing new pet failed: Got the new pet!", null, returned);
 	}
 
 	@Theory
@@ -98,7 +99,6 @@ public class OwnerTheoryTest {
 		assumeTrue(list.contains(name));
 		assumeTrue(ignoreNew);
 
-		Set<Pet> testPets = new HashSet<>();
 		int i = 0;
 		int expectedId = 0;
 		for(String str : list){
@@ -108,16 +108,16 @@ public class OwnerTheoryTest {
 			Pet newPet = new Pet();
 			newPet.setName(str);
 			newPet.setId(i);
-			testPets.add(newPet);
+			testOwner.addPet(newPet);
 			i+=1;
 		}
-		testOwner.setPetsInternal(testPets);
 		Pet expected = new Pet();
 		expected.setName(name);
 		expected.setId(expectedId);
 
 		Pet returned = testOwner.getPet(name, ignoreNew);
-		assumeTrue("Test for find new pet failed: Couldn't find the new pet!",returned.equals(expected));
+		testOwner.addPet(expected);
+		assertSame("Test for find new pet failed: Couldn't find the new pet!", returned, expected);
 	}
 
 
