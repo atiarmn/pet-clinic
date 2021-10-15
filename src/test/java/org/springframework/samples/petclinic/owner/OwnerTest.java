@@ -40,6 +40,7 @@ class OwnerTest {
 	@Test
 	public void testForGetNotNullInternalPets() {
 		testPets.add(testPet1);
+		testPets.add(testPet2);
 		testOwner.setPetsInternal(testPets);
 		Set<Pet> internalPets = testOwner.getPetsInternal();
 		assertFalse("Test for get not null internal pets failed: An empty set!", internalPets.equals(new HashSet<>()));
