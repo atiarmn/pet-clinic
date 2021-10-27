@@ -20,10 +20,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class PetManagerTest {
@@ -46,6 +44,7 @@ class PetManagerTest {
 		this.petManager = new PetManager(pets, owners, log);
 	}
 
+	//Mock - state and behavior verification - Mockisty
 	@Test
 	public void FindOwner_ExistingOwner_FindTheOwner() {
 		Owner expectedOwner = mock(Owner.class);
@@ -56,6 +55,7 @@ class PetManagerTest {
 		assertEquals("Test for find existing owner failed: Returned owner is not equal to expected owner!",expectedOwner, returnedOwner);
 	}
 
+	//Mock - state and behavior verification - Mockisty
 	@Test
 	public void FindOwner_MissingOwner_ReturnNull() {
 		when(owners.findById(ownerId)).thenReturn(null);
@@ -65,6 +65,7 @@ class PetManagerTest {
 		assertEquals("Test for find missing owner failed: Returned owner is not equal null!",null, returnedOwner);
 	}
 
+	//Mock - state and behavior verification - Mockisty
 	@Test
 	public void NewPet_GivenOwner_AddPetSuccessfully() {
 		Owner owner = mock(Owner.class);
@@ -74,6 +75,7 @@ class PetManagerTest {
 		verify(owner).addPet(isA(Pet.class));
 	}
 
+	//Mock - state and behavior verification - Mockisty
 	@Test
 	public void FindPet_ExistingPet_FindThePet() {
 		Pet expectedPet = mock(Pet.class);
@@ -84,6 +86,7 @@ class PetManagerTest {
 		assertEquals("Test for find existing pet failed: Returned pet is not equal to expected pet!",returnedPet, expectedPet);
 	}
 
+	//Mock - state and behavior verification - Mockisty
 	@Test
 	public void FindPet_MissingPet_FindThePet() {
 		when(pets.get(petId)).thenReturn(null);
@@ -92,6 +95,7 @@ class PetManagerTest {
 		assertEquals("Test for find missing pet failed: Returned pet is not equal to expected pet!",null, returnedPet);
 	}
 
+	//Mock - state and behavior verification - Mockisty
 	@Test
 	public void GetOwnerPets_ExisitngOwner_ReturnOwnerPets() {
 		Owner owner = mock(Owner.class);
@@ -126,6 +130,8 @@ class PetManagerTest {
 		verify(owner).getPets();
 	}
 
+	//Mock - state and behavior verification - Mockisty
+
 	@Test
 	public void GetOwnerPets_MissingOwner_ReturnNull() {
 		when(petManager.findOwner(ownerId)).thenReturn(null);
@@ -134,6 +140,8 @@ class PetManagerTest {
 		assertEquals("Test for get missing owner pets failed: Returned pets are not equal to null!", null,returnedPets);
 		verify(log).info("finding the owner's pets by id {}", ownerId);
 	}
+
+	//Mock - state and behavior verification - Mockisty
 
 	@Test
 	public void GetOwnerPetType_ExistingOwner_ReturnTypes(){
@@ -181,6 +189,7 @@ class PetManagerTest {
 		verify(log).info("finding the owner's petTypes by id {}", ownerId);
 	}
 
+	//Mock - state and behavior verification - Mockisty
 	@Test
 	public void GetOwnerPetType_MissingOwner_ReturnNull(){
 		when(petManager.findOwner(ownerId)).thenReturn(null);
@@ -188,6 +197,8 @@ class PetManagerTest {
 		assertEquals("Test for get missing owner pettypes failed: Returned pet types are not equal to null!", null, returnedTypes);
 		verify(log).info("finding the owner's petTypes by id {}", ownerId);
 	}
+
+	//Mock - behavior verification - Mockisty
 	@Test
 	public void SavePet_GivenOwnerAndPet_SavePetSuccessfully() {
 		Owner testOwner = mock(Owner.class);
@@ -203,6 +214,7 @@ class PetManagerTest {
 
 	}
 
+	//Mock - state and behavior verification - Mockisty
 	@Test
 	public void GetVisitsBetween_GivenDateAndPet_ReturnVisitsBetween() {
 		Pet testPet = mock(Pet.class);
@@ -222,7 +234,7 @@ class PetManagerTest {
 		when(testPet.getVisitsBetween(testStartDate, testEndDate)).thenReturn(expectedVisitsList);
 
 		List<Visit> actualVisitsList = petManager.getVisitsBetween(petId, testStartDate, testEndDate);
-		assertEquals("Get Visits Between Test Failed: Incompatible Visits List", expectedVisitsList.toArray(), actualVisitsList.toArray());
+		assertArrayEquals("Get Visits Between Test Failed: Incompatible Visits List", expectedVisitsList.toArray(), actualVisitsList.toArray());
 		verify(log).info("get visits for pet {} from {} since {}", petId, testStartDate, testEndDate);
 	}
 
