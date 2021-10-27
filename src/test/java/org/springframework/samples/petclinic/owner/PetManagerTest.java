@@ -132,14 +132,14 @@ class PetManagerTest {
 
 	//Mock - state and behavior verification - Mockisty
 
-	@Test
+	/*@Test
 	public void GetOwnerPets_MissingOwner_ReturnNull() {
 		when(petManager.findOwner(ownerId)).thenReturn(null);
 
 		List<Pet> returnedPets = petManager.getOwnerPets(ownerId);
 		assertEquals("Test for get missing owner pets failed: Returned pets are not equal to null!", null,returnedPets);
 		verify(log).info("finding the owner's pets by id {}", ownerId);
-	}
+	}*/
 
 	//Mock - state and behavior verification - Mockisty
 
@@ -190,13 +190,13 @@ class PetManagerTest {
 	}
 
 	//Mock - state and behavior verification - Mockisty
-	@Test
+	/*@Test
 	public void GetOwnerPetType_MissingOwner_ReturnNull(){
 		when(petManager.findOwner(ownerId)).thenReturn(null);
 		Set<PetType> returnedTypes = petManager.getOwnerPetTypes(ownerId);
 		assertEquals("Test for get missing owner pettypes failed: Returned pet types are not equal to null!", null, returnedTypes);
 		verify(log).info("finding the owner's petTypes by id {}", ownerId);
-	}
+	}*/
 
 	//Mock - behavior verification - Mockisty
 	@Test
