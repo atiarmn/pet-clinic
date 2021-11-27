@@ -2,7 +2,6 @@ package org.springframework.samples.petclinic.utility;
 
 import com.github.mryf323.tractatus.*;
 import com.github.mryf323.tractatus.experimental.extensions.ReportingExtension;
-import com.sun.org.slf4j.internal.LoggerFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -126,7 +125,7 @@ class TriCongruenceTest {
 		Triangle t2 = new Triangle(-3, 3, 1);
 		boolean areCongruent = TriCongruence.areCongruent(t1, t2);
 		log.debug("Triangles identified as '{}'.", areCongruent ? "Congruent" : "Not Congruent");
-		Assertions.assertTrue(areCongruent);
+		Assertions.assertFalse(areCongruent);
 	}
 	/* second CC : FF */
 	@ClauseCoverage(
@@ -181,7 +180,7 @@ class TriCongruenceTest {
 		predicateValue = false
 	)
 	@Test
-	public void testAreCongruentWithFirstEdgeOfFirstTriangleMoreThanZeroAndSumOfTwoFirstEdgesIsMoreThanThirdEdge() {
+	public void testAreCongruentWithFirstEdgeOfFirstTriangleMoreThanZeroAndSumOfTwoFirstEdgesIsMoreThanThirdEdgeCC() {
 		Triangle t1 = new Triangle(3, 3, 1);
 		Triangle t2 = new Triangle(3, 3, 1);
 		boolean areCongruent = TriCongruence.areCongruent(t1, t2);
