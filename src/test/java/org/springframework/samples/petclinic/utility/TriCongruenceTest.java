@@ -189,13 +189,29 @@ class TriCongruenceTest {
 		Assertions.assertTrue(areCongruent);
 	}
 
-	/**
-	 * TODO
-	 * explain your answer here
+	/* to prove that CUTPNFP doesn't subsume UTPC we can use an example:
+	 * f = ab + cd
+	 * Implicant ab has 3 unique true points : {TTFF, TTFT, TTTF}
+			• For clause a, we can pair unique true point TTFF with near false point FTFF
+			• For clause b, we can pair unique true point TTFF with near false point TFFF
+	 * Implicant cd has 3 unique true points : {FFTT, FTTT, TFTT}
+			• For clause c, we can pair unique true point FFTT with near false point FFFT
+			• For clause d, we can pair unique true point FFTT with near false point FFTF
+	 * CUTPNFP set : {TTFF, FFTT, TFFF, FTFF, FFTF, FFFT}
+	 * for UTPC: Given minimal DNF representations of a predicate f and its negation ~f , TR contains a unique true point for each implicant in f and each implicant in ~f
+	 * ~f = ~a~c + ~a~d + ~b~c + ~b~d
+	 * ab:{TTFF, TTFT, TTTF}
+	 * cd:{FFTT, FTTT, TFTT}
+	 * ~a~c:{FTFT}
+	 * ~a~d:{FTTF}
+	 * ~b~c:{TFFT}
+	 * ~b~d:{TFTF}
+	 * UTPC set : {TTFF, TTFT, TTTF, FFTT, FTTT, TFTT, FTFT, FTTF, TFFT, TFTF}
+	 * as you can see CUTPNFP doesn't subsume UTPC.
 	 */
-	private static boolean questionTwo(boolean a, boolean b, boolean c, boolean d, boolean e) {
+	private static boolean question2(boolean a, boolean b, boolean c, boolean d) {
 		boolean predicate = false;
-//		predicate = a predicate with any number of clauses
+		predicate = (a && b) || (c && d);
 		return predicate;
 	}
 }
