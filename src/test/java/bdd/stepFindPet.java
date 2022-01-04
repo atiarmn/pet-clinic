@@ -60,7 +60,7 @@ public class stepFindPet {
 		foundPet = petService.findPet(5);
 	}
 
-	@Then("The pet is returned correctly")
+	@Then("The pet with ID = 5 will be found and returned successfully")
 	public void pet_found() {
 		assertEquals(pet.getId(), foundPet.getId());
 	}
